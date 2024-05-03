@@ -16,6 +16,7 @@ return new class extends Migration
             //data manifest
                 $table->string('note')->nullable();
                 $table->string('status')->nullable();
+                $table->uuid('user_id')->nullable();
                 $table->foreignUuid('waybill_id')->constrained('waybills')->cascadeOnDelete();
                 $table->dateTime('date_manifest')->nullable();
             $table->timestamps();

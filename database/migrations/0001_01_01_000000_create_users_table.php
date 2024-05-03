@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('role');
+            $table->string('key');
             $table->integer('total_tokens')->default(0);
             $table->string('phone_number')->nullable();
             $table->rememberToken();

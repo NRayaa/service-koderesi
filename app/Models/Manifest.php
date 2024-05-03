@@ -12,7 +12,7 @@ class Manifest extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = [
-        'note', 'updated_at', 'status', 'waybill_id', 'date_manifest'
+        'note', 'updated_at', 'status', 'user_id','waybill_id', 'date_manifest'
     ];
 
     protected $dates =['date_manifest'];

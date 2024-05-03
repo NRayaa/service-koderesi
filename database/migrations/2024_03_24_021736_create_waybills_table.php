@@ -15,12 +15,14 @@ return new class extends Migration
             $table->uuid('id')->primary();
                 //data yang dimasukkan ke waybill
                     $table->string('waybill');
+                    $table->string('title');
                     $table->string('courier');
-                    $table->string('origin')->nullable();
-                    $table->string('destination')->nullable();
+                    $table->string('shipper')->nullable();
+                    $table->string('receiver')->nullable();
                     $table->string('origin_address')->nullable();
                     $table->string('destination_address')->nullable();
-                    $table->enum('status', ['on progress', 'delivered', 'returned', 'failed']);
+                    $table->string('status');
+                    $table->enum('display_status', ['display', 'archive']);
                     $table->uuid('user_id')->nullable();
                     $table->enum('status_loop', ['none', 'three', 'six']);
             $table->timestamps();

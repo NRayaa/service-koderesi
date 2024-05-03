@@ -12,7 +12,7 @@ class Waybill extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = [
-        'waybill', 'courier', 'origin', 'destination', 'origin_address', 'destination_address', 'status', 'user_id', 'status_loop'
+        'title', 'waybill', 'courier', 'origin', 'destination', 'origin_address', 'destination_address', 'status', 'user_id', 'status_loop'
     ];
 
     public function manifests(): HasMany{

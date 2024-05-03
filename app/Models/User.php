@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
@@ -23,7 +24,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role'
+        'role',
+        'key'
     ];
 
     /**
@@ -62,5 +64,9 @@ class User extends Authenticatable
     public function Transaction() : HasMany
     {
         return $this->hasMany(Transaction::class, 'user_id', 'id');
+    }
+
+    public function profile(): HasOne{
+        return $this->hasOne(Profile::class, 'user_id', 'id');
     }
 }
