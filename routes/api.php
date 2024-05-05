@@ -35,13 +35,12 @@ Route::post('auth/login', [\App\Http\Controllers\AuthController::class, 'login']
 Route::post('auth/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::get('auth/page', [\App\Http\Controllers\Auth\UserAuthController::class, 'index'])->middleware('auth:sanctum');
 
-// Route::prefix('superadmin')->middleware('auth:sanctum', 'superadmin')->group(function () {
-    Route::prefix('superadmin')->group(function () {
+Route::prefix('superadmin')->middleware('auth:sanctum', 'superadmin')->group(function () {
+    // Route::prefix('superadmin')->group(function () {
     Route::prefix('waybill')->group(function () {
         // Routes for filtering waybills
-        Route::get('delivered', [WaybillFilterController::class, 'indexDelivered']);
-        Route::get('on-progress', [WaybillFilterController::class, 'indexOnProgress']);
-        Route::get('return-reject', [WaybillFilterController::class, 'indexReturnReject']);
+        Route::get('/filter', [WaybillFilterController::class, 'filterByStatus']);
+        Route::get('/search', [WaybillController::class, 'search']);
 
         // Route for statistics
         Route::get('statistic', [StatisticController::class, 'indexHalamanResiList']);

@@ -15,15 +15,19 @@ class SuperAdmin
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::user() || Auth::user()->role !== 'superadmin') {
-            return response()->json([
-                'success' => false,
-                'message' => 'Unauthorized | Bukan Role Anda',
-            ], 403);
+        // Pastikan pengguna tidak terautentikasi atau belum login
+        if (!Auth::check() || !Auth::user()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return $next($request);
+        // Jika pengguna sudah terautentikasi, lanjutkan pengecekan role admin
+        if (Auth::user()->role === 'superadmin') {
+            return $next($request);
+        }
+
+        // Jika user tidak memiliki role admin
+        return response()->json(['error' => 'Forbidden'], 403);
     }
 }

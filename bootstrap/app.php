@@ -13,11 +13,12 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'superadmin' => \App\Http\Middleware\Superadmin::class,
+            'superadmin' => \App\Http\Middleware\SuperAdmin::class,
             'admin' => \App\Http\Middleware\Admin::class,
             'wordpress' => \App\Http\Middleware\Wordpress::class,
         ]);
     })
+
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();

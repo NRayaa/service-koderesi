@@ -371,4 +371,35 @@ class WaybillController extends Controller
             return response()->json(['error' => 'Terjadi kesalahan saat menghapus data waybill.'], 500);
         }
     }
+
+    public function search(Request $request)
+    {
+        $request->validate([
+            'q' => 'required|string', // Parameter untuk pencarian
+        ]);
+
+        // Ambil parameter pencarian dari request
+        $query = $request->input('q');
+
+        // Lakukan pencarian
+        $waybills = Waybill::where(function ($queryBuilder) use ($query) {
+                $queryBuilder->where('waybill', 'LIKE', "%$query%")
+                    ->orWhere('title', 'LIKE', "%$query%");
+            })
+            ->get();
+
+        // Jika hasil pencarian tidak ditemukan
+        if ($waybills->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data waybill tidak ditemukan',
+            ]);
+        }
+
+        // Kembalikan hasil pencarian
+        return response()->json([
+            'success' => true,
+            'data' => $waybills
+        ]);
+    }
 }

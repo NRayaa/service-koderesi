@@ -15,7 +15,9 @@ class UserAuthController extends Controller
     public function index()
     {
         $userid = Auth::id();
-        $user = User::all();
+        $user = User::where('id', $userid)
+        ->select('id', 'name', 'email', 'total_tokens')
+        ->get();
 
         return response()->json([
             'success' => true,
@@ -27,10 +29,6 @@ class UserAuthController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
