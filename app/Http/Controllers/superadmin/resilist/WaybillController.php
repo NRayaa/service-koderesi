@@ -67,6 +67,7 @@ class WaybillController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
+            'title' => 'required',
             'waybill_id' => 'required',
             'courier_code' => 'required',
         ]);
@@ -116,6 +117,7 @@ class WaybillController extends Controller
 
             $waybill = Waybill::create([
                 'waybill' => $waybillId,
+                'title' => $request->input('title'),
                 'courier' => $data['courier']['company'],
                 'origin' => $data['origin']['contact_name'],
                 'destination' => $data['destination']['contact_name'],
